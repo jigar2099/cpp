@@ -10,12 +10,14 @@ private:
 	list<string> PublishedVideoTitles;
 protected:
 	string OwnerName;
+	int ContentQuality; // track quality content reading
 public:
 	//constructor
 	YouTubeChannel(string name, string ownerName) {
 		Name = name;
 		OwnerName = ownerName;
 		SubscribersCount = 0;
+		ContentQuality = 0;
 	}
 	// method to get information
 	void GetInfo() {
@@ -42,6 +44,13 @@ public:
 	void PublishVideo(string name) {
 		PublishedVideoTitles.push_back(name);
 	}
+	void CheckAnalytics() {
+		if (ContentQuality < 5) {
+			cout << Name << ":smaller database" << endl;
+		}
+		else
+			cout << Name << ":larger database." << endl;
+	}
 };
 
 //inheritance from base class(YouTubeChannel) to child class(newsLetter)
@@ -52,39 +61,42 @@ public:
 	}
 	void Experiment() {
 		cout << OwnerName << ":BASE(Baryon Anti-baryon Symmetry Experiment )" << endl;
+		ContentQuality++;
+	}
+};
+
+
+// Polymorphisam
+class HEPexperiments :public YouTubeChannel {
+public:
+	HEPexperiments(string name, string ownerName) : YouTubeChannel(name, ownerName) {
+
+	}
+	void Experiment() {
+		cout << OwnerName << ":high energy and very high energy events" << endl;
+		ContentQuality++;
 	}
 };
 
 
 int main() {
 
-	newsLetter ytChannel("CERN news", "CERN");
-	ytChannel.PublishVideo("ATLAS");
-	ytChannel.PublishVideo("CMS");
-	ytChannel.PublishVideo("ALICE");
-	ytChannel.PublishVideo("LHCb");
-	ytChannel.PublishVideo("TOTEM");
-	ytChannel.PublishVideo("LHCf");
-	ytChannel.PublishVideo("MoEDAL");
-	ytChannel.Subscribe();
-	ytChannel.Subscribe();
-	ytChannel.GetInfo();
-	ytChannel.Experiment();
-
+	HEPexperiments hepexp("HEP and HE-Astrophysics", "Fundamental Physics");
 	newsLetter nsLetter("CERN news", "CERN");
-	nsLetter.PublishVideo("ATLAS");
-	nsLetter.PublishVideo("CMS");
-	nsLetter.PublishVideo("ALICE");
-	nsLetter.PublishVideo("LHCb");
-	nsLetter.PublishVideo("TOTEM");
-	nsLetter.PublishVideo("LHCf");
-	nsLetter.PublishVideo("MoEDAL");
-	for (int i = 0; i < 1000; i++) {
-		nsLetter.Subscribe();
-		nsLetter.Subscribe();
-	}
-	nsLetter.GetInfo();
+
+	hepexp.Experiment();
+	hepexp.Experiment();
+	hepexp.Experiment();
+	hepexp.Experiment();
+	hepexp.Experiment();
 	nsLetter.Experiment();
+	nsLetter.Experiment();
+
+	YouTubeChannel* yt1 = &nsLetter;
+	YouTubeChannel* yt2 = &hepexp;
+
+	yt1->CheckAnalytics();
+	yt2->CheckAnalytics();
 
 	system("pause>0");
 }
