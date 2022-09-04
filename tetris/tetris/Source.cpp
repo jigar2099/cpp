@@ -1,13 +1,11 @@
 #include<iostream>
 #include<Windows.h>
 using namespace std;
-/*#include <stdio.h>
-
-#ifdef _UNICODE
-#ifndef UNICODE
-#define UNICODE
-#endif
-#endif*/
+/*
+A nice C++ game tutorial for devs and for c++ learners to explore and get hands-on
+experience to apply their knowledge.
+Reference : https://github.com/OneLoneCoder/videos/blob/master/OneLoneCoder_Tetris.cpp
+*/
 
 wstring tetromino[7];
 int nFieldWidth = 12;
